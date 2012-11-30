@@ -1,8 +1,6 @@
-Capacitación de MVC Lagash
-==========================
+#Capacitación de MVC Lagash
 
-Requisitos
-----------
+##Requisitos
 
 * Visual Studio 2010 SP1
 * SQL Server CE 4.0 Instalado

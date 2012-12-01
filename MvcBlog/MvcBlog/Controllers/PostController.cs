@@ -6,19 +6,26 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcBlog.Models;
+using MvcBlog.Repositories;
+using System.Configuration;
 
 namespace MvcBlog.Controllers
 { 
     public class PostController : Controller
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        protected readonly PostRepository _postRepository;
+
+        public PostController()
+        {
+            _postRepository = new PostRepository(ConfigurationManager.ConnectionStrings["DatabaseEntities"].ConnectionString);
+        }
 
         //
         // GET: /Post/
 
         public ViewResult Index()
         {
-            return View(db.Posts.ToList());
+            return View(_postRepository.List());
         }
 
         //
@@ -26,7 +33,7 @@ namespace MvcBlog.Controllers
 
         public ViewResult Details(int id)
         {
-            Post post = db.Posts.Single(p => p.IdPost == id);
+            Post post = _postRepository.Get(id);
             return View(post);
         }
 
@@ -46,8 +53,7 @@ namespace MvcBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Posts.AddObject(post);
-                db.SaveChanges();
+                _postRepository.Create(post);
                 return RedirectToAction("Index");  
             }
 
@@ -59,7 +65,7 @@ namespace MvcBlog.Controllers
  
         public ActionResult Edit(int id)
         {
-            Post post = db.Posts.Single(p => p.IdPost == id);
+            Post post = _postRepository.Get(id);
             return View(post);
         }
 
@@ -71,9 +77,7 @@ namespace MvcBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Posts.Attach(post);
-                db.ObjectStateManager.ChangeObjectState(post, EntityState.Modified);
-                db.SaveChanges();
+                _postRepository.Update(post);
                 return RedirectToAction("Index");
             }
             return View(post);
@@ -84,7 +88,7 @@ namespace MvcBlog.Controllers
  
         public ActionResult Delete(int id)
         {
-            Post post = db.Posts.Single(p => p.IdPost == id);
+            Post post = _postRepository.Get(id);
             return View(post);
         }
 
@@ -93,17 +97,9 @@ namespace MvcBlog.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
-            Post post = db.Posts.Single(p => p.IdPost == id);
-            db.Posts.DeleteObject(post);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
         {
-            db.Dispose();
-            base.Dispose(disposing);
+            _postRepository.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }

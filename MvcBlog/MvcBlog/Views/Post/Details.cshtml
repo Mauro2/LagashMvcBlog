@@ -1,25 +1,17 @@
 ﻿@model MvcBlog.Models.Post
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Details</h2>
-
 <fieldset>
     <legend>Post</legend>
 
-    <div class="display-label">Titulo</div>
-    <div class="display-field">
+    <h2>
         @Html.DisplayFor(model => model.Titulo)
-    </div>
+    </h2>
 
-    <div class="display-label">Contenido</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Contenido)
     </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.IdPost }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Delete", "Delete", new { id=Model.IdPost })
 </p>

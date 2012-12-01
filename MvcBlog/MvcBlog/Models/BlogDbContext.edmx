@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DatabaseModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="DatabaseModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="DatabaseModelStoreContainer">
           <EntitySet Name="Comentario" EntityType="DatabaseModel.Store.Comentario" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="DatabaseModel.Store.Post" store:Type="Tables" />
@@ -21,6 +21,7 @@
           <Property Name="Autor" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="Contenido" Type="nvarchar" MaxLength="1000" />
           <Property Name="IdPost" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -29,6 +30,7 @@
           <Property Name="IdPost" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Titulo" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="Contenido" Type="nvarchar" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <Association Name="FK_ComentarioPost">
           <End Role="Post" Type="DatabaseModel.Store.Post" Multiplicity="1">
@@ -44,8 +46,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -66,6 +67,7 @@
           <Property Name="Contenido" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
           <Property Name="IdPost" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Post" Relationship="DatabaseModel.FK_ComentarioPost" FromRole="Comentario" ToRole="Post" />
+          <Property Type="DateTime" Name="Fecha" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -75,6 +77,7 @@
           <Property Name="Titulo" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Contenido" Type="String" MaxLength="4000" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Comentarios" Relationship="DatabaseModel.FK_ComentarioPost" FromRole="Post" ToRole="Comentario" />
+          <Property Type="DateTime" Name="Fecha" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <Association Name="FK_ComentarioPost">
           <End Role="Post" Type="DatabaseModel.Post" Multiplicity="1">
@@ -97,13 +100,15 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
           <EntitySetMapping Name="Comentarios"><EntityTypeMapping TypeName="DatabaseModel.Comentario"><MappingFragment StoreEntitySet="Comentario">
-            <ScalarProperty Name="IdComentario" ColumnName="IdComentario" />
+            <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdComentario" ColumnName="IdComentario" />
             <ScalarProperty Name="Autor" ColumnName="Autor" />
             <ScalarProperty Name="Contenido" ColumnName="Contenido" />
             <ScalarProperty Name="IdPost" ColumnName="IdPost" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Posts"><EntityTypeMapping TypeName="DatabaseModel.Post"><MappingFragment StoreEntitySet="Post">
-            <ScalarProperty Name="IdPost" ColumnName="IdPost" />
+            <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdPost" ColumnName="IdPost" />
             <ScalarProperty Name="Titulo" ColumnName="Titulo" />
             <ScalarProperty Name="Contenido" ColumnName="Contenido" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>

@@ -145,12 +145,14 @@ namespace MvcBlog.Models
         /// <param name="idComentario">Initial value of the IdComentario property.</param>
         /// <param name="autor">Initial value of the Autor property.</param>
         /// <param name="idPost">Initial value of the IdPost property.</param>
-        public static Comentario CreateComentario(global::System.Int32 idComentario, global::System.String autor, global::System.Int32 idPost)
+        /// <param name="fecha">Initial value of the Fecha property.</param>
+        public static Comentario CreateComentario(global::System.Int32 idComentario, global::System.String autor, global::System.Int32 idPost, global::System.DateTime fecha)
         {
             Comentario comentario = new Comentario();
             comentario.IdComentario = idComentario;
             comentario.Autor = autor;
             comentario.IdPost = idPost;
+            comentario.Fecha = fecha;
             return comentario;
         }
 
@@ -255,6 +257,30 @@ namespace MvcBlog.Models
         private global::System.Int32 _IdPost;
         partial void OnIdPostChanging(global::System.Int32 value);
         partial void OnIdPostChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Fecha
+        {
+            get
+            {
+                return _Fecha;
+            }
+            set
+            {
+                OnFechaChanging(value);
+                ReportPropertyChanging("Fecha");
+                _Fecha = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Fecha");
+                OnFechaChanged();
+            }
+        }
+        private global::System.DateTime _Fecha;
+        partial void OnFechaChanging(global::System.DateTime value);
+        partial void OnFechaChanged();
 
         #endregion
     
@@ -316,11 +342,13 @@ namespace MvcBlog.Models
         /// </summary>
         /// <param name="idPost">Initial value of the IdPost property.</param>
         /// <param name="titulo">Initial value of the Titulo property.</param>
-        public static Post CreatePost(global::System.Int32 idPost, global::System.String titulo)
+        /// <param name="fecha">Initial value of the Fecha property.</param>
+        public static Post CreatePost(global::System.Int32 idPost, global::System.String titulo, global::System.DateTime fecha)
         {
             Post post = new Post();
             post.IdPost = idPost;
             post.Titulo = titulo;
+            post.Fecha = fecha;
             return post;
         }
 
@@ -401,6 +429,30 @@ namespace MvcBlog.Models
         private global::System.String _Contenido;
         partial void OnContenidoChanging(global::System.String value);
         partial void OnContenidoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Fecha
+        {
+            get
+            {
+                return _Fecha;
+            }
+            set
+            {
+                OnFechaChanging(value);
+                ReportPropertyChanging("Fecha");
+                _Fecha = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Fecha");
+                OnFechaChanged();
+            }
+        }
+        private global::System.DateTime _Fecha;
+        partial void OnFechaChanging(global::System.DateTime value);
+        partial void OnFechaChanged();
 
         #endregion
     

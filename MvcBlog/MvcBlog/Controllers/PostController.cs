@@ -25,7 +25,8 @@ namespace MvcBlog.Controllers
 
         public ViewResult Index()
         {
-            return View(_postRepository.List());
+            ViewBag.FraseDelMes = "Me dijo un cliente referido a un competidor: Yo creo que el programador anterior sufría de sordera testicular... O sea oía bien!... pero se hacía el boludo.";
+            return View(_postRepository.List().OrderByDescending(x => x.Fecha));
         }
 
         //

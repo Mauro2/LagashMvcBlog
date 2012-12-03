@@ -40,7 +40,6 @@ namespace MvcBlog.Controllers
 
         //
         // GET: /Post/Create
-
         public ActionResult Create()
         {
             return View();

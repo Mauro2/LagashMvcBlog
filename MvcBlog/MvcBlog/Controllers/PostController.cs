@@ -50,14 +50,22 @@ namespace MvcBlog.Controllers
         [HttpPost]
         public ActionResult Create(Post post)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                post.Fecha = DateTime.UtcNow;
-                _postRepository.Create(post);
-                return Json(new { Result = true, Url = Url.Action("Index") }); 
+                return View(post);
             }
 
-            return View(post);
+            post.Fecha = DateTime.UtcNow;
+            _postRepository.Create(post);
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { Result = true, Url = Url.Action("Index") });
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
         
         //

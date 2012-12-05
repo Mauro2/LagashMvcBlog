@@ -18,11 +18,11 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("DatabaseModel", "FK_ComentarioPost", "Post", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(MvcBlog.Models.Post), "Comentario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MvcBlog.Models.Comentario), true)]
+[assembly: EdmRelationshipAttribute("DatabaseModel", "FK_ComentarioPost", "Post", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(MvcBlog.Data.Post), "Comentario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MvcBlog.Data.Comentario), true)]
 
 #endregion
 
-namespace MvcBlog.Models
+namespace MvcBlog.Data
 {
     #region Contexts
     

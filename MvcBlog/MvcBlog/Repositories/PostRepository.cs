@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MvcBlog.Models;
-using System.Data;
-
-namespace MvcBlog.Repositories
+﻿namespace MvcBlog.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using MvcBlog.Data;
+    using Post = MvcBlog.Models.Post;
+
     public class PostRepository
     {
         string _connectionString;
@@ -20,7 +18,14 @@ namespace MvcBlog.Repositories
         {
             using (var db = GetDbContext())
             {
-                db.Posts.AddObject(post);
+                var dbPost = new MvcBlog.Data.Post
+                {
+                    IdPost = post.IdPost,
+                    Titulo = post.Titulo,
+                    Contenido = post.Contenido,
+                    Fecha = post.Fecha,
+                };
+                db.Posts.AddObject(dbPost);
                 db.SaveChanges();
             }
         }
@@ -29,8 +34,10 @@ namespace MvcBlog.Repositories
         {
             using (var db = GetDbContext())
             {
-                db.Posts.Attach(post);
-                db.ObjectStateManager.ChangeObjectState(post, EntityState.Modified);
+                var dbPost = db.Posts.Single(p => p.IdPost == post.IdPost);
+                dbPost.Titulo = post.Titulo;
+                dbPost.Contenido = post.Contenido;
+                dbPost.Fecha = post.Fecha;
                 db.SaveChanges();
             }
         }
@@ -39,7 +46,7 @@ namespace MvcBlog.Repositories
         {
             using (var db = GetDbContext())
             {
-                Post post = db.Posts.Single(p => p.IdPost == id);
+                var post = db.Posts.Single(p => p.IdPost == id);
                 db.Posts.DeleteObject(post);
                 db.SaveChanges();
             }
@@ -49,7 +56,13 @@ namespace MvcBlog.Repositories
         {
             using (var db = GetDbContext())
             {
-                return db.Posts.ToList();
+                return db.Posts.Select(p => new Post
+                                            {
+                                                IdPost = p.IdPost,
+                                                Titulo = p.Titulo,
+                                                Contenido = p.Contenido,
+                                                Fecha = p.Fecha,
+                                            }).ToList();
             }
         }
 
@@ -57,7 +70,14 @@ namespace MvcBlog.Repositories
         {
             using (var db = GetDbContext())
             {
-                return db.Posts.Single(x => x.IdPost == id);
+                var post = db.Posts.Single(x => x.IdPost == id);
+                return new Post
+                {
+                    IdPost = post.IdPost,
+                    Titulo = post.Titulo,
+                    Contenido = post.Contenido,
+                    Fecha = post.Fecha,
+                };
             }
         }
 

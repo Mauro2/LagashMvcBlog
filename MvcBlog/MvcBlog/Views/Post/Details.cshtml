@@ -13,5 +13,6 @@
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.IdPost }) |
-    @Html.ActionLink("Delete", "Delete", new { id=Model.IdPost })
+    @Html.ActionLink("Delete", "Delete", new { id=Model.IdPost }) |
+    @Html.RouteLink("Ver Comentarios", "ListComentariosByTituloPost", new { tituloPost = Model.Titulo, idPost = Model.IdPost })
 </p>

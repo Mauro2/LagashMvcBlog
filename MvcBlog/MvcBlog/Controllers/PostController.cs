@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using MvcBlog.Models;
-using MvcBlog.Repositories;
-using System.Configuration;
+﻿namespace MvcBlog.Controllers
+{
+    using System;
+    using System.Configuration;
+    using System.Linq;
+    using System.Web.Mvc;
+    using MvcBlog.Models;
+    using MvcBlog.Repositories;
 
-namespace MvcBlog.Controllers
-{ 
     public class PostController : Controller
     {
         protected readonly PostRepository _postRepository;

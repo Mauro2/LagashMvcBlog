@@ -2,47 +2,44 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using MvcBlog.Data;
     using Post = MvcBlog.Models.Post;
 
-    public class PostRepository
+    public class PostRepository : MvcBlogRepositoryBase<Post>
     {
-        string _connectionString;
-
         public PostRepository(string connectionString)
+            : base(connectionString)
         {
-            _connectionString = connectionString;
         }
 
-        public void Create(Post post)
+        public override void Create(Post instance)
         {
             using (var db = GetDbContext())
             {
                 var dbPost = new MvcBlog.Data.Post
                 {
-                    IdPost = post.IdPost,
-                    Titulo = post.Titulo,
-                    Contenido = post.Contenido,
-                    Fecha = post.Fecha,
+                    IdPost = instance.IdPost,
+                    Titulo = instance.Titulo,
+                    Contenido = instance.Contenido,
+                    Fecha = instance.Fecha,
                 };
                 db.Posts.AddObject(dbPost);
                 db.SaveChanges();
             }
         }
 
-        public void Update(Post post)
+        public override void Update(Post instance)
         {
             using (var db = GetDbContext())
             {
-                var dbPost = db.Posts.Single(p => p.IdPost == post.IdPost);
-                dbPost.Titulo = post.Titulo;
-                dbPost.Contenido = post.Contenido;
-                dbPost.Fecha = post.Fecha;
+                var dbPost = db.Posts.Single(p => p.IdPost == instance.IdPost);
+                dbPost.Titulo = instance.Titulo;
+                dbPost.Contenido = instance.Contenido;
+                dbPost.Fecha = instance.Fecha;
                 db.SaveChanges();
             }
         }
 
-        public void Delete(int id)
+        public override void Delete(int id)
         {
             using (var db = GetDbContext())
             {
@@ -52,7 +49,7 @@
             }
         }
 
-        public IEnumerable<Post> List()
+        public override IEnumerable<Post> List()
         {
             using (var db = GetDbContext())
             {
@@ -66,7 +63,7 @@
             }
         }
 
-        public Post Get(int id)
+        public override Post Get(int id)
         {
             using (var db = GetDbContext())
             {
@@ -79,11 +76,6 @@
                     Fecha = post.Fecha,
                 };
             }
-        }
-
-        public DatabaseEntities GetDbContext()
-        {
-            return new DatabaseEntities(_connectionString);
         }
     }
 }

@@ -19,14 +19,22 @@ namespace MvcBlog
 
         public static void RegisterRoutes(RouteCollection routes)
         {
+            var namespaces = new string[] { "MvcBlog.Controllers" };
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
+                "ListComentariosByTituloPost",
+                "{tituloPost}/{idPost}",
+                new { controller = "Comentario", action = "GetByPost" },
+                namespaces
+            );
 
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Post", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-
         }
 
         protected void Application_Start()

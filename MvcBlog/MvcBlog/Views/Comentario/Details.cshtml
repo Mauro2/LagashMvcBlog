@@ -1,0 +1,40 @@
+﻿@model MvcBlog.Models.Comentario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Comentario</legend>
+
+    <div class="display-label">IdComentario</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdComentario)
+    </div>
+
+    <div class="display-label">Autor</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Autor)
+    </div>
+
+    <div class="display-label">Contenido</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Contenido)
+    </div>
+
+    <div class="display-label">IdPost</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdPost)
+    </div>
+
+    <div class="display-label">Fecha</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fecha)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

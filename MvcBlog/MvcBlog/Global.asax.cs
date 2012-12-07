@@ -25,7 +25,7 @@ namespace MvcBlog
 
             routes.MapRoute(
                 "ListComentariosByTituloPost",
-                "{tituloPost}/{idPost}",
+                "ver-comentarios/{tituloPost}/{idPost}",
                 new { controller = "Comentario", action = "GetByPost" },
                 namespaces
             );

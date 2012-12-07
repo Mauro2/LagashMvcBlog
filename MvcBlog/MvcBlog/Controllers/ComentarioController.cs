@@ -1,13 +1,26 @@
 ﻿namespace MvcBlog.Controllers
 {
+    using System.Configuration;
     using System.Web.Mvc;
     using MvcBlog.Models;
+    using MvcBlog.Repositories;
 
     public class ComentarioController : Controller
     {
+        protected readonly ComentarioRepository comentarioRepository;
+
+        public ComentarioController()
+        {
+            comentarioRepository = new ComentarioRepository(ConfigurationManager.ConnectionStrings["DatabaseEntities"].ConnectionString);
+        }
+
         public ActionResult GetByPost(string tituloPost, int idPost)
         {
-            return View();
+            ViewBag.TituloComentario = tituloPost;
+
+            var comentarios = this.comentarioRepository.GetByPostId(idPost);
+
+            return View(comentarios);
         }
 
         //

@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<MvcBlog.Models.Comentario>
 
 @{
-    ViewBag.Title = "GetByPost";
+    ViewBag.Title = "Comentarios";
 }
 
-<h2>GetByPost</h2>
+<h2>Comentarios de @ViewBag.TituloComentario</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo", "Create")
 </p>
 <table>
     <tr>
-        <th>
+        <th style="display:none;">
             IdComentario
         </th>
         <th>
@@ -20,7 +20,7 @@
         <th>
             Contenido
         </th>
-        <th>
+        <th style="display:none;">
             IdPost
         </th>
         <th>
@@ -32,7 +32,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.IdComentario)
+            @Html.HiddenFor(modelItem => item.IdComentario)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Autor)
@@ -41,7 +41,7 @@
             @Html.DisplayFor(modelItem => item.Contenido)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IdPost)
+            @Html.HiddenFor(modelItem => item.IdPost)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Fecha)

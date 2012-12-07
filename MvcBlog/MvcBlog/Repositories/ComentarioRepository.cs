@@ -81,5 +81,21 @@
                 };
             }
         }
+
+        public IEnumerable<Comentario> GetByPostId(int postId)
+        {
+            using (var db = GetDbContext())
+            {
+                return db.Comentarios.Where(c => c.IdPost == postId).Select(comentario =>
+                    new Comentario
+                    {
+                        IdComentario = comentario.IdComentario,
+                        Autor = comentario.Autor,
+                        Contenido = comentario.Contenido,
+                        Fecha = comentario.Fecha,
+                        IdPost = comentario.IdPost,
+                    }).ToList();
+            }
+        }
     }
 }

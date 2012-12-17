@@ -1,13 +1,24 @@
 ﻿<script type="text/javascript">
     $(document).ready(function () {
-        $("#createPost").live('click', function () {
+        $("#submitComment").live('click', function () {
+            var $form = $("#createCommentForm");
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("Create", "Post")',
-                data: $("#createPostForm").serialize(),
+                url: $form.attr('action'),
+                data: $form.serialize(),
                 success: function (result) {
                     if (result.Result) {
-                        window.location = result.Url;
+                        debugger;
+                        var $template = $("#commentTemplate").clone();
+                        $template.find(".mvcAutor").text(result.Data.Autor);
+                        $template.find(".mvcContenido").text(result.Data.Contenido);
+                        $template.find(".mvcFecha").text(result.Data.Fecha);
+                        $template.find(".mvcEdit").attr("href", $template.find(".mvcEdit").attr("href").replace("XXX", result.Data.IdComentario));
+                        $template.find(".mvcDelete").attr("href", $template.find(".mvcDelete").attr("href").replace("XXX", result.Data.IdComentario));
+
+                        $("table:first").append($template);
+
+                        $form[0].reset();
                     }
                 }
             });
